@@ -172,7 +172,10 @@ SIMPLE_JWT = {
 }
 
 import os
-CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL_ORIGINS', 'True').lower() in ('1', 'true', 'yes')
+CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL_ORIGINS', 'False').lower() in ('1', 'true', 'yes')
+CORS_ALLOWED_ORIGINS = [
+    "https://expense-splitter-frontend.vercel.app",
+]
 CORS_ALLOW_CREDENTIALS = os.getenv('CORS_ALLOW_CREDENTIALS', 'True').lower() in ('1', 'true', 'yes')
 CORS_URLS_REGEX = os.getenv('CORS_URLS_REGEX', r"^/api/.*$")
 AUTH_USER_MODEL = 'users.User'
