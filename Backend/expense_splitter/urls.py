@@ -40,5 +40,5 @@ urlpatterns = [
     path('api/', include('expenses.urls')),
     path('api/', include('groups.urls')),
     path('api//', include('transactions.urls')),
-    ath('', root), 
+    path('', root), 
 ]
