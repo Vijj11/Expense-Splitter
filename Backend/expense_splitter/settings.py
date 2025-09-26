@@ -91,24 +91,17 @@ WSGI_APPLICATION = 'expense_splitter.wsgi.application'
 # DATABASE configuration: prefer DATABASE_URL, otherwise accept CLEVER_* vars, otherwise fallback to local MySQL
 import dj_database_url
 from urllib.parse import quote_plus
-
-db_url = os.getenv('DATABASE_URL')
-if not db_url:
-    clever_user = os.getenv('CLEVER_DB_USER') or os.getenv('CLEVER_USER')
-    clever_password = os.getenv('CLEVER_DB_PASSWORD') or os.getenv('CLEVER_PASS')
-    clever_host = os.getenv('CLEVER_DB_HOST') or os.getenv('CLEVER_HOST')
-    clever_port = os.getenv('CLEVER_DB_PORT') or os.getenv('CLEVER_PORT')
-    clever_name = os.getenv('CLEVER_DB_NAME') or os.getenv('CLEVER_NAME') or os.getenv('CLEVER_DATABASE')
-    if clever_user and clever_password and clever_host and clever_name:
-        clever_port = clever_port or '3306'
-        db_url = f"mysql://{clever_user}:{quote_plus(clever_password)}@{clever_host}:{clever_port}/{clever_name}"
-    else:
-        # fallback local DB
-        db_url = 'mysql://root:Likitha@2004@localhost:3306/expense_splitter'
-
 DATABASES = {
-    'default': dj_database_url.parse(db_url, conn_max_age=600, engine='django.db.backends.mysql')
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '3306'),
+    }
 }
+
 
 
 # Password validation
