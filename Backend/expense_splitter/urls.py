@@ -17,11 +17,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
+def root(request):
+    return HttpResponse("Backend is running!")
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -36,4 +40,5 @@ urlpatterns = [
     path('api/', include('expenses.urls')),
     path('api/', include('groups.urls')),
     path('api//', include('transactions.urls')),
+    ath('', root), 
 ]
